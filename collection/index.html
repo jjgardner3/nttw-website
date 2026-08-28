@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Collection — New to the Wall Foundation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.9/babel.min.js"></script>
+<style>
+  :root { --ink:#1a1714; --ink-soft:#2d2a24; --cream:#f5f1eb; --warm-white:#faf8f5; --stone:#b5a999; --moss:#5a6b52; --charcoal:#3a3632; --rule:#d6cfc5; --accent:#8b7355; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { font-size:16px; -webkit-font-smoothing:antialiased; }
+  body { background:var(--warm-white); color:var(--ink); font-family:'DM Sans',sans-serif; font-weight:300; line-height:1.7; }
+  ::-webkit-scrollbar { width:4px; } ::-webkit-scrollbar-track { background:var(--cream); } ::-webkit-scrollbar-thumb { background:var(--rule); }
+  .essay { font-family:'Cormorant Garamond',serif; font-size:1.1rem; line-height:1.95; color:var(--ink); }
+  .essay p { margin-bottom:1.6rem; }
+  .essay strong { font-weight:600; }
+  .essay em { font-style:italic; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+const { useState, useMemo } = React;
+const driveImg = (id) => id ? "https://lh3.googleusercontent.com/d/" + id : null;
+
+const REGION_ORDER = ["Paris", "International", "Los Angeles", "Hudson Valley", "Santa Fe", "Direct from artist"];
+
+const COLLECTION = [
+  { artist:"Claire Chesnier", title:"100724", medium:"Ink on paper mounted on dibond", dimensions:"177 × 136 cm", gallery:"Ceysson & Bénétière", year:"2024", region:"Paris", market:"Ascending", driveId:"1uPhkH5UIPBxsxeOCZbSAWLG4MtrcS57u" },
+  { artist:"Claire Chesnier", title:"160225", medium:"Ink on paper mounted on dibond", dimensions:"173 × 135.5 cm", gallery:"Ceysson & Bénétière", year:"2025", region:"Paris", market:"Ascending", driveId:"1YmNqR6PX28XNqNfXmcdVCA6h7wKI6xek" },
+  { artist:"Louise Sartor", title:"Fragile", medium:"Gouache on cardboard", dimensions:"86×15.5cm", gallery:"Galerie Crèvecoeur", year:"2025", region:"Paris", market:"Ascending", driveId:"1yymruapKOfvZBdZhFETKvsoXYejOvPOy", provenance:"Exhibited: To Vincent: A Winter's Tale, Fondation Vincent van Gogh Arles, opened 30 November 2025. Curators Jean de Loisy and Margaux Bonopera." },
+  { artist:"Brett Goodroad", title:"I touch or am touch'd", medium:"Oil on copper", dimensions:"27×20cm", gallery:"Galerie Crèvecoeur", year:"2025", region:"Paris", market:"Ascending", driveId:"1UUbfxG_OCizFePgTJMhrRLwtdwSJ25Zt" },
+  { artist:"Houston Maludi", title:"Monochromique Cubisme", medium:"Mixed media", dimensions:"Commission", gallery:"MAGNIN-A", year:"2025", region:"Paris", market:"Emerging", driveId:"161M--L5wH7BQx0-bAgIUuTN0zMrsja6M" },
+  { artist:"Bryce Delplanque", title:"Portuguese Bend Through Céline Tortoiseshell Shades", medium:"Charcoal/inks on wood + automotive vinyl varnish", dimensions:"54×194cm", gallery:"Galerie Prima", year:"2026", region:"Paris", market:"Emerging", driveId:"1VPwc9IbyGpcHEl6fr8K9nNhW7TSoKxr5" },
+  { artist:"Bryce Delplanque", title:"Growing Pansies", medium:"Mixed media", dimensions:"72×87cm", gallery:"Galerie Prima", year:"2024", region:"Paris", market:"Emerging", driveId:"1P8i0QRTdxpHnEFxwrbZNJ5dY7OGcBES9" },
+  { artist:"Melik Ohanian", title:"INTERVAL OF VIEWING, Chronograph #CN2470-24", medium:"Piezo inkjet print on dibon", dimensions:"135×90cm", gallery:"Galerie Chantal Crousel", year:"2025", region:"Paris", market:"Established", driveId:"1xBRgDLs0yN34H_4FdstlIIQMezRkYw4J" },
+  { artist:"Moffat Takadiwa", title:"African Mask", medium:"Computer keys / toothbrushes / combs / nail polish tops", dimensions:"125×165cm", gallery:"Semiose", year:"2026", region:"Paris", market:"Ascending", driveId:"1HTPOoH1u-HFk3JkhdicZyRF2wrlflXPc" },
+  { artist:"Annabell Häfner", title:"Nature of Light 5", medium:"Acrylic chalk and oil on canvas", dimensions:"52×70cm", gallery:"Belmond Capela", year:"2024", region:"Paris", market:"Emerging", driveId:"1tkQxGNFUCFt-pl4F6UAFSNK6QUgUIUqi" },
+  { artist:"Alexandra Yan Wong", title:"Untitled (Grey Blue)", medium:"Oil on canvas", dimensions:"Variable", gallery:"Amelie, Maison d'art", year:"2024", region:"Paris", market:"Emerging", driveId:"1fPmxKa3V1EN7oolOhrpC6D1-L4ur0EcC" },
+  { artist:"Delphine de Luppé", title:"Fireworks 07", medium:"Photography", dimensions:"Variable", gallery:"Amelie, Maison d'art", year:"2024", region:"Paris", market:"Emerging", driveId:"143eJG66iu3p-7pDHCXVioOdTJoA5X4p1" },
+  { artist:"Renaud Allirand", title:"Gravure 24", medium:"Ink on paper", dimensions:"Variable", gallery:"Amelie, Maison d'art", year:"2024", region:"Paris", market:"Emerging", driveId:"1M6owbSMdGqZg46Et2NpzYLY5L6xFIS3g" },
+  { artist:"Gerd Kanz", title:"Architecture de la lumière", medium:"Oil on canvas", dimensions:"Variable", gallery:"Amelie, Maison d'art", year:"2024", region:"Paris", market:"Emerging", driveId:"1_kjb8wgDEheOPt_iBX8Fe42_zT9iYdFb" },
+  { artist:"Ludovic Philippon", title:"Dark Fragments", medium:"Mixed media", dimensions:"Variable", gallery:"Amelie, Maison d'art", year:"2024", region:"Paris", market:"Emerging", driveId:"1aqGBhqVhyv4qnqYsYWnNabSjx9Azz1rs" },
+  { artist:"Elynor Smithwick", title:"Against the air", medium:"Mixed media", dimensions:"Variable", gallery:"Amelie, Maison d'art", year:"2024", region:"Paris", market:"Emerging", driveId:"1S4eK_xAbReOwWx_GT3ERaOTN6Csk9ADH" },
+  { artist:"Tania Mouraud", title:"Borderland (No. 447)", medium:"C-print", dimensions:'47×70"', gallery:"Ceysson & Bénétière", year:"2008", region:"Paris", market:"Established", driveId:"1SJTu4qHdzBK-9FqZv8pgGaAk5Zt1bUf-" },
+  { artist:"Ludovic Nkoth", title:"The Audience", medium:"Oil on canvas", dimensions:"152.4×182.8cm", gallery:"Massimo De Carlo", year:"2026", region:"International", market:"Ascending", driveId:"1gUfAVUCab_Cy-jXhSfHdYYwLiqxixOti" },
+  { artist:"Djabril Boukhenaïssi", title:"Vers la Bibliothèque", medium:"Mixed media on canvas", dimensions:'38⅝×26"', gallery:"Mariane Ibrahim", year:"2024", region:"International", market:"Emerging", driveId:"1VG6r_1qHcBF4Qiy1FX4FrdRyb2z7OUDb" },
+  { artist:"Barkley L. Hendricks", title:"Self-Portrait, New Haven", medium:"Print", dimensions:"Ed. of 5", gallery:"Marian Goodman", year:"1972", region:"International", market:"Established", driveId:"1JM9JbRY5rrjQVJEbtgceug2mfPJlKLNn" },
+  { artist:"Etienne Chambaud", title:"Untamed", medium:"Mixed media", dimensions:"Variable", gallery:"LABOR", year:"2024", region:"International", market:"Ascending", driveId:"14aS_gZxqsSuX1CD4e2ZKH6RFfs6rcUH1" },
+  { artist:"Cooper Cox", title:"DRIFT", medium:"Oil on canvas", dimensions:"Variable", gallery:"Ochi", year:"2024", region:"Los Angeles", market:"Emerging", driveId:"1ZGzTGIQT81Jwh73XfhGf7xMsvWdGZgT-" },
+  { artist:"Cooper Cox", title:"Four Seasons (Spring)", medium:"Oil on canvas", dimensions:'18×24"', gallery:"Ochi", year:"2024", region:"Los Angeles", market:"Emerging", driveId:"1sM92IRcCu11YjWgFQpHw2_5Ks0H3yV7V" },
+  { artist:"Cooper Cox", title:"Four Seasons (Summer)", medium:"Oil on canvas", dimensions:'18×24"', gallery:"Ochi", year:"2024", region:"Los Angeles", market:"Emerging", driveId:"1J6aEHaDLh2uIGNTTbi6p2nGJ4UQiLk3L" },
+  { artist:"Cooper Cox", title:"Four Seasons (Fall)", medium:"Oil on canvas", dimensions:'18×24"', gallery:"Ochi", year:"2024", region:"Los Angeles", market:"Emerging", driveId:"1cWh7wRUwqQ7FkgwQaevkTBlzx5S5_mjs" },
+  { artist:"Cooper Cox", title:"Four Seasons (Winter)", medium:"Oil on canvas", dimensions:'18×24"', gallery:"Ochi", year:"2024", region:"Los Angeles", market:"Emerging", driveId:"19yPnkY3-kT-S_ol9EHzJ8BQq1Xgdz4t-" },
+  { artist:"Katherina Olschbaur", title:"Portrait", medium:"Oil on linen", dimensions:'14×12"', gallery:"Perrotin", year:"2023", region:"Los Angeles", market:"Ascending", driveId:"17Or69Zuik3W9oxuBjlTvXaon8BlfnPc3" },
+  { artist:"Mira Dancy", title:"No Crease or Fold / Untouched (Janes Village)", medium:"Oil and acrylic on canvas", dimensions:'54×64"', gallery:"Night Gallery", year:"2026", region:"Los Angeles", market:"Ascending", driveId:"124_hjkTETFw78BbM3_ToNy2HV0sHTvAE" },
+  { artist:"Corinna Gosmaro", title:"Nesting", medium:"Mixed media on polyester filters", dimensions:'52×74×2½"', gallery:"Night Gallery", year:"2026", region:"Los Angeles", market:"Emerging", driveId:"1dsGqO41dBzontYxkHxsPtBDYytDJ7z-K" },
+  { artist:"Anne Sanger", title:"Can't Hardly Wait", medium:"Mixed media", dimensions:"Variable", gallery:"Pinkwater Gallery", year:"2024", region:"Hudson Valley", market:"Emerging", driveId:"1zKCLuZDy0LpBo1ucOUhPbHb2iV7Q-DQL" },
+  { artist:"Karen Barth", title:"Blue", medium:"Oil on canvas", dimensions:"76 × 40 in", gallery:"Pinkwater Gallery", year:"1988", region:"Hudson Valley", market:"Emerging", driveId:"1mIKmqPaEf4KHL58L2sOvHysz5wACgUIj" },
+  { artist:"Helena Palazzi", title:"We Meet in Dreams", medium:"Photography on translucent vellum", dimensions:"Six framed pieces (ed. 1/1)", gallery:"Pinkwater Gallery", year:"2025", region:"Hudson Valley", market:"Emerging", driveId:"16EBSaWfwuxduQZmwJ6GZaLQz4L_VI4lu" },
+  { artist:"Clédia Fourniau", title:"splash bombs", medium:"Ink, dye, oil, dry pigment and acrylic on cotton", dimensions:"33.5 × 23.5 × 5 cm", gallery:"Ceysson & Bénétière", year:"2026", region:"Paris", market:"Ascending", driveId:"1rlsss4B05cG0iPDSK_KvxVojLsP488d8" },
+  { artist:"Catherine Czudej", title:"Untitled", medium:"Ceramic / mixed media", dimensions:"Variable", gallery:"Direct from artist", year:"2024", region:"Direct from artist", market:"Ascending", driveId:"1UKTBmhnt-K6jw5OoTMhe8OO4k2TtqKVj" },
+  { artist:"Shawn Huckins", title:"War Cloud and Glowing Green Curtain Study", medium:"Oil and acrylic on canvas", dimensions:'14×18"', gallery:"K Contemporary", year:"2026", region:"Santa Fe", market:"Ascending", driveId:"1GR_8XjrV2GWQ70Hf8sHfL0x6kG4HHMBN" },
+  { artist:"Francisco Souto", title:"Gaze", medium:"Colored pencil mounted on wood panel", dimensions:'16×16×2½"', gallery:"K Contemporary", year:"2025", region:"Santa Fe", market:"Established", driveId:"1c9glFqhCTmG7_FzHwP7-LBaUp4L5EDqN" },
+  { artist:"Marc Dennis", title:"Van Ghost", medium:"Oil on linen", dimensions:'36×27"', gallery:"K Contemporary", year:"2017", region:"Santa Fe", market:"Ascending", driveId:"1fLuwaceNbddXdxFh-3BOsrEBW1YJNeTW" },
+];
+
+const ESSAY_PARAGRAPHS = [
+  { type:"body", html:"The collection began in Paris, in a gallery, in front of a painting we didn’t yet know was ours." },
+  { type:"body", html:"We had bought a place in Paris recently and were looking for things to do with it — ways to be in the city, ways to make the apartment feel like ours. Shana found Alexandra at The Seen on Instagram and reached out. Paris galleries can be intimidating if you are not yet a collector, and we weren’t, so we asked Alexandra to take us in. She came by the apartment, we had a long call about what we liked and didn’t, we had lunch, and she walked us into rooms we wouldn’t have walked into on our own. One of those rooms was Ceysson & Bénétière." },
+  { type:"body", html:"We were looking at a Claire Chesnier and we bumped into each other in front of it — the way you do when you are both already looking at the same thing without having to say it. <em>This is it.</em> That was the first painting." },
+  { type:"body", html:"It was the same feeling we had had once before, in a different context. We had bought our house in Stone Ridge during COVID, on what had started as a staycation, the first time we had ever been there. Shana and I got out of the car on a property we had never seen before and looked at each other and said, <em>This is right. This is where we make our home.</em> The Chesnier was the art version of the same instinct." },
+  { type:"body", html:"A few months after the Chesnier, Alexandra took us to Art Basel Paris and we walked into the Crèvecoeur booth. There was a small Louise Sartor on the wall — gouache on cardboard, slight, almost humble — called <em>Fragile.</em> We looked at it and said, <em>oh wow, that’s so cool,</em> and then we walked out and into the Mariane Ibrahim booth next door. Halfway through that next booth I stopped and turned around. <em>No. I want to go back. I want that piece.</em> We bought <em>Fragile</em> that day." },
+  { type:"body", html:"A couple of weeks later, back in the Hudson Valley, an email came in from Anastasia at Crèvecoeur: a curator from the Fondation Vincent van Gogh in Arles had come through the booth, seen the Sartor, and asked to borrow it. The show was <em>To Vincent: A Winter’s Tale</em>, curated by Jean de Loisy and Margaux Bonopera — twenty-two artists across generations writing back to Van Gogh, alongside two of his paintings on loan from the Van Gogh Museum in Amsterdam. <em>Fragile</em> hung among Kiefer, Tillmans, Dijkstra, Manders, Janssens, Ancart, Josephsohn. The Foundation chose it as the marquee image of the show — the work that appeared on the exhibition banner outside the museum. The painting we had almost walked past, four months earlier, was the face of a major international exhibition about one of the great painters in history." },
+  { type:"body", html:"There is a line I have been saying to friends for a long time, and I think it came from somewhere in my family: <em>buy it when you see it.</em> When something stops you, when it means something, you buy it. The Van Gogh Foundation email was the universe telling us the line was right. The collection has been built on it ever since." },
+  { type:"rule" },
+  { type:"body", html:"That’s the whole strategy, and it’s also the hardest part. The Glickfield-Gardner Collection wasn’t built to a thesis. It was built one painting, one sculpture, one studio visit at a time, across two cities and a handful of years. The through-lines that other people find in it — geography, generation, medium — are real, but they are descriptions of what happened, not blueprints for what we did." },
+  { type:"body", html:"What we can say plainly is this:" },
+  { type:"body", html:"<strong>The work usually comes first. The friendship often follows.</strong> We acquired Claire Chesnier through Ceysson & Bénétière before we knew her; she is now someone we are close to. We met Cooper Cox through <em>DRIFT</em>, the painting our advisor Prisca first put in front of us; once we realized Cooper’s studio was in Red Hook a short drive away, we went to see him, and the friendship became one of the closest in the collection. <em>Four Seasons</em>, the four-panel cycle, came later, at his solo show — by then we were collecting Cooper because we knew him, not the other way around. We came across Houston Maludi’s work at Art Basel Paris and were stopped by it; the piece we wanted had already sold by the time we tried to buy it, and we commissioned a new work through MAGNIN-A in Paris — with Marie-Charlotte Plagnol as our contact — because we wanted to support an artist doing work this good, not just leave with nothing. We bought from Boukhenaïssi’s solo at Mariane Ibrahim because we were in the room and the work landed. Katherina Olschbaur came to us through Perrotin LA — Pauli Ochi introduced us to Ben Lee Handler there — and the first time Jimmy walked into the gallery, he and Ben hugged, the same way Cooper and Jimmy did when they first met. The relationships that matter to us tend to start that way. The pattern is consistent: we are drawn to a body of work, we follow it, we get to know the people behind it when we can, and the collection accrues from that." },
+  { type:"body", html:"<strong>We are not the kind of collectors who buy without looking.</strong> Almost every work in the collection was seen in person, in a gallery, at a fair, in a studio, before it came to us. We have advisors we trust — Prisca at Unfram’d, Alexandra at The Seen — but we make our own decisions, and we have walked away from far more than we have bought. We aren’t trying to be comprehensive. We are trying to be honest about what we respond to." },
+  { type:"body", html:"<strong>We collect from joy, not from scarcity.</strong> We are not interested in chasing waitlists, working allocation lists, or fighting other collectors for the privilege of owning a painting. The blue-chip prize at the top of the sky is real and we respect it, but it is not why we do this. We want works in our home that make us feel good when we walk past them. We want artists whose practice we can support — in the collection, in the commissions, and, before long, in the Art Barn we are planning in the Hudson Valley — because the work moves us. There are more artists doing extraordinary work right now than any one collection can hold. We would rather follow the ones who demand our attention than fight for the ones the market tells us we should want." },
+  { type:"body", html:"<strong>A purchase is also a paycheck.</strong> We are just as happy buying a piece because we know it covers a few months of an artist’s rent and studio time as we are buying anything else in the collection. That is not a side benefit of how we collect — it is part of why we collect. Every acquisition is also a vote for a practice continuing. The foundation exists, in part, so we can keep casting that vote on purpose." },
+  { type:"body", html:"<strong>We support artists beyond the transaction.</strong> This is the part that turns a collection into a foundation. We commissioned Houston Maludi to make new work through MAGNIN-A in Paris after the piece we wanted at Art Basel Paris had already sold — because the right response to being moved by an artist is not to leave empty-handed but to find another way to support the work. We came to Moffat Takadiwa through Alexandra at The Seen, who pointed us toward his show at Semiose; we went to see the work, were taken by it, met Moffat in person, and have since heard more about why his practice matters from Ben Lee Handler at Perrotin — one of our gallery relationships confirming an artist we’d come to through another. That kind of cross-confirmation is part of how the collection moves. We are commissioning, producing, and standing behind <em>Chaises</em> — a five-output collaboration with Allard van Hoorn, Ophelia Jacarini, and Charlotte Tampol for TERRA 2026 in Burgundy. We are planning an art barn in the Hudson Valley, on donated land, to be built alongside the home we are making there. We hope to work on it with INC Architecture & Design, the firm that designed our home. The longer-term vision is a residence and a studio attached to the barn, so that artists can come and stay and make work in the place. The barn comes first; the residency program follows. The work we own is only half of what we are doing. The work we support is the other half, and over time it may be the more important one." },
+  { type:"body", html:"<strong>The galleries are people.</strong> We are based in New York and Paris, and the gallery relationships that shape the collection were built by being in those cities, walking shows, returning to the same rooms. But what we mean when we say “gallery relationship” is a person, not a brand. Adele at Ceysson-Bénétière. Anastasia at Galerie Crèvecoeur. Ben Lee Handler at Perrotin. Pauli and Natalie at Ochi. Marie-Charlotte Plagnol at MAGNIN-A. Our advisors Prisca at Unfram’d and Alexandra at The Seen. There are more, and we are still meeting them. These are the people who make the work of building the collection feel like the work of building a life. The collection’s coming home is the Hudson Valley, where we are turning donated land into a place where the work — and, we hope, the people who make and place it — will eventually live in community." },
+  { type:"body", html:"<strong>We collect across painting, sculpture, installation, works on paper.</strong> Painting is currently the deepest register; sculpture and installation are areas we are growing into through commissions and productions rather than purely through acquisitions. We are interested in artists at meaningful inflection points — first solo shows, first institutional moments, first transnational dialogues — but we are not trying to time the market. We are trying to be present for the right work at the right time, and to be useful to the artists who make it." },
+  { type:"body", html:"<strong>We are not chasing a thesis. We are building a practice.</strong> Relationships with artists. Relationships with galleries. Support beyond the transaction. That is the whole of it. Everything else — the diaspora through-line a curator might notice, the Matisse-like figuration that draws us to Ludovic Nkoth, the Paris program, the Hudson Valley future — is the shape that practice has taken, not the plan we started with." },
+  { type:"body", html:"If we are doing this right, the collection in 2030 will read as the residue of how we lived, who we knew, what we paid attention to. Not a portfolio. A record." },
+  { type:"sig" },
+];
+
+const mC = { Emerging:{bg:"rgba(90,107,82,0.08)",color:"#5a6b52"}, Ascending:{bg:"rgba(139,115,85,0.1)",color:"#8b7355"}, Established:{bg:"rgba(26,23,20,0.06)",color:"#3a3632"} };
+const bs = (m) => ({ display:"inline-block", padding:"0.15rem 0.6rem", fontSize:"0.6rem", letterSpacing:"0.1em", textTransform:"uppercase", fontFamily:"'DM Sans',sans-serif", background:(mC[m]||mC.Emerging).bg, color:(mC[m]||mC.Emerging).color });
+
+function Lightbox({w, onClose}) {
+  React.useEffect(() => {
+    const handler = (e) => { if (e.key === "Escape") onClose(); };
+    document.addEventListener("keydown", handler);
+    return () => document.removeEventListener("keydown", handler);
+  }, []);
+  return React.createElement("div", {
+    onClick: onClose,
+    style: {position:"fixed",inset:0,background:"rgba(20,20,18,0.92)",display:"flex",alignItems:"center",justifyContent:"center",zIndex:1000,padding:"2rem",cursor:"pointer"}
+  },
+    React.createElement("div", {
+      onClick: e => e.stopPropagation(),
+      style: {maxWidth:"min(92vw,940px)",position:"relative",cursor:"default"}
+    },
+      React.createElement("button", {
+        onClick: onClose,
+        "aria-label": "Close",
+        style: {position:"absolute",top:"-2.5rem",right:0,background:"none",border:"none",color:"rgba(255,255,255,0.65)",fontSize:"1.5rem",cursor:"pointer",lineHeight:1,padding:"0.25rem 0.5rem",fontFamily:"sans-serif"}
+      }, "✕"),
+      React.createElement("img", {
+        src: driveImg(w.driveId),
+        alt: w.artist+" — "+w.title,
+        style: {display:"block",maxWidth:"100%",maxHeight:"82vh",objectFit:"contain"}
+      }),
+      React.createElement("div", {style:{marginTop:"1rem",display:"flex",gap:"0.6rem",alignItems:"baseline",flexWrap:"wrap"}},
+        React.createElement("span", {style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"1rem",color:"rgba(255,255,255,0.9)"}}, w.artist+","),
+        React.createElement("em", {style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"1rem",color:"rgba(255,255,255,0.7)"}}, w.title),
+        React.createElement("span", {style:{fontSize:"0.75rem",color:"rgba(255,255,255,0.4)"}}, w.year)
+      )
+    )
+  );
+}
+
+function WorkCard({w, onOpen}) {
+  return React.createElement("div", {style:{background:"white",border:"1px solid var(--rule)",overflow:"hidden"}},
+    React.createElement("div", {style:{width:"100%",aspectRatio:"4/3",overflow:"hidden",background:"var(--cream)",cursor:w.driveId&&onOpen?"zoom-in":"default"}, onClick:w.driveId&&onOpen?()=>onOpen(w):undefined},
+      w.driveId
+        ? React.createElement("img", {src:driveImg(w.driveId), alt:w.artist+" — "+w.title, style:{width:"100%",height:"100%",objectFit:"cover"}, loading:"lazy", onError:(e)=>{e.target.style.display="none"}})
+        : React.createElement("div", {style:{width:"100%",height:"100%",display:"flex",alignItems:"center",justifyContent:"center",fontFamily:"'Cormorant Garamond',serif",fontSize:"0.9rem",fontStyle:"italic",color:"var(--stone)"}}, w.artist.split(" ").pop())
+    ),
+    React.createElement("div", {style:{padding:"1rem 1.2rem"}},
+      React.createElement("div", {style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"1rem",fontWeight:500,color:"var(--ink)",marginBottom:"0.2rem"}}, w.artist),
+      React.createElement("div", {style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"0.9rem",fontStyle:"italic",color:"var(--charcoal)",marginBottom:"0.6rem"}}, w.title),
+      React.createElement("div", {style:{fontSize:"0.75rem",color:"var(--stone)",marginBottom:"0.5rem"}}, w.medium+(w.dimensions&&w.dimensions!=="Variable"&&w.dimensions!=="Commission"?" · "+w.dimensions:"")),
+      React.createElement("div", {style:{display:"flex",justifyContent:"space-between",alignItems:"center"}},
+        React.createElement("span", {style:{fontSize:"0.7rem",color:"var(--stone)"}}, w.year),
+        React.createElement("span", {style:bs(w.market)}, w.market)
+      ),
+      w.provenance && React.createElement("div", {style:{fontSize:"0.7rem",color:"var(--stone)",marginTop:"0.6rem",fontStyle:"italic",lineHeight:"1.5",borderTop:"1px solid var(--rule)",paddingTop:"0.6rem"}}, w.provenance)
+    )
+  );
+}
+
+function GalleryView({grouped, onOpen}) {
+  return React.createElement("div", null,
+    REGION_ORDER.filter(r => grouped[r] && Object.keys(grouped[r]).length > 0).map(region => {
+      const galleries = grouped[region];
+      const totalWorks = Object.values(galleries).flat().length;
+      const galleryCount = Object.keys(galleries).length;
+      return React.createElement("div", {key:region, style:{marginBottom:"3.5rem"}},
+        React.createElement("div", {style:{display:"flex",alignItems:"baseline",gap:"1.5rem",marginBottom:"2rem",paddingBottom:"0.6rem",borderBottom:"2px solid var(--ink)"}},
+          React.createElement("h2", {style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"1.6rem",fontWeight:400,letterSpacing:"0.02em",color:"var(--ink)"}}, region),
+          React.createElement("span", {style:{fontSize:"0.65rem",letterSpacing:"0.12em",textTransform:"uppercase",color:"var(--stone)"}},
+            galleryCount+" "+(galleryCount===1?"gallery":"galleries")+" · "+totalWorks+" works"
+          )
+        ),
+        Object.entries(galleries).map(([gallery, works]) =>
+          React.createElement("div", {key:gallery, style:{marginBottom:"2.5rem"}},
+            React.createElement("div", {style:{display:"flex",alignItems:"baseline",gap:"0.75rem",marginBottom:"1rem"}},
+              React.createElement("span", {style:{fontSize:"0.72rem",fontWeight:400,letterSpacing:"0.1em",textTransform:"uppercase",color:"var(--charcoal)",fontFamily:"'DM Sans',sans-serif"}}, gallery),
+              React.createElement("span", {style:{fontSize:"0.65rem",color:"var(--stone)"}}, works.length+" "+(works.length===1?"work":"works"))
+            ),
+            React.createElement("div", {style:{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(230px,1fr))",gap:"1rem"}},
+              works.map((w,i) => React.createElement(WorkCard, {key:i, w:w, onOpen:onOpen}))
+            )
+          )
+        )
+      );
+    })
+  );
+}
+
+function EssayView({onLinkToCollection}) {
+  return React.createElement("div", {style:{maxWidth:"680px"}},
+    React.createElement("h1", {style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"2rem",fontWeight:400,letterSpacing:"0.02em",marginBottom:"2.5rem",color:"var(--ink)"}}, "How We Collect"),
+    React.createElement("div", {className:"essay"},
+      ESSAY_PARAGRAPHS.map((p, i) => {
+        if (p.type === "rule") return React.createElement("hr", {key:i, style:{border:"none",borderTop:"1px solid var(--rule)",margin:"2.5rem 0"}});
+        if (p.type === "sig") return React.createElement("div", {key:i, style:{marginTop:"2.5rem",fontFamily:"'Cormorant Garamond',serif",fontStyle:"italic",color:"var(--charcoal)"}},
+          React.createElement("div", {style:{fontSize:"1rem",marginBottom:"0.2rem"}}, "— Jimmy Gardner & Shana Glickfield"),
+          React.createElement("div", {style:{fontSize:"0.9rem",color:"var(--stone)"}}, "New to the Wall Foundation, May 2026")
+        );
+        return React.createElement("p", {key:i, dangerouslySetInnerHTML:{__html:p.html}});
+      })
+    )
+  );
+}
+
+function App() {
+  const [tab, setTab] = useState("collection");
+  const [lightboxWork, setLightboxWork] = useState(null);
+  const [view, setView] = useState("gallery");
+  const [regionF, setRegionF] = useState("All");
+  const [mktF, setMktF] = useState("All");
+
+  const filtered = useMemo(() =>
+    COLLECTION.filter(w => (regionF==="All"||w.region===regionF) && (mktF==="All"||w.market===mktF)),
+    [regionF, mktF]
+  );
+
+  const grouped = useMemo(() => {
+    const g = {};
+    REGION_ORDER.forEach(r => {
+      const byGallery = {};
+      COLLECTION.filter(w => w.region===r).forEach(w => {
+        if (!byGallery[w.gallery]) byGallery[w.gallery] = [];
+        byGallery[w.gallery].push(w);
+      });
+      if (Object.keys(byGallery).length > 0) g[r] = byGallery;
+    });
+    return g;
+  }, []);
+
+  const stats = useMemo(() => ({
+    total: COLLECTION.length,
+    artists: new Set(COLLECTION.map(w=>w.artist)).size,
+    galleries: new Set(COLLECTION.map(w=>w.gallery)).size,
+    regions: REGION_ORDER.filter(r=>COLLECTION.some(w=>w.region===r)).length
+  }), []);
+
+  const ns  = { display:"flex", justifyContent:"space-between", alignItems:"center", padding:"1.5rem 3rem", borderBottom:"1px solid var(--rule)" };
+  const ls  = { fontFamily:"'Cormorant Garamond',serif", fontSize:"1.15rem", fontWeight:400, letterSpacing:"0.04em", color:"var(--ink)", textDecoration:"none" };
+  const ts  = (a) => ({ background:"none", border:"none", borderBottom:a?"2px solid var(--moss)":"2px solid transparent", color:a?"var(--ink)":"var(--stone)", fontSize:"0.72rem", letterSpacing:"0.12em", textTransform:"uppercase", padding:"0.8rem 1rem", cursor:"pointer", marginBottom:"-1px", fontFamily:"'DM Sans',sans-serif" });
+  const fs  = (a) => ({ background:a?"var(--ink)":"transparent", color:a?"var(--cream)":"var(--stone)", border:"1px solid "+(a?"var(--ink)":"var(--rule)"), padding:"0.3rem 0.75rem", fontSize:"0.65rem", letterSpacing:"0.08em", textTransform:"uppercase", cursor:"pointer", fontFamily:"'DM Sans',sans-serif" });
+
+  const REGION_LABELS = {"Paris":"Paris","International":"International","Los Angeles":"Los Angeles","Hudson Valley":"Hudson Valley","Santa Fe":"Santa Fe","Direct from artist":"Direct"};
+
+  const introBlock = React.createElement("div", {style:{borderBottom:"1px solid var(--rule)",paddingBottom:"2rem",marginBottom:"2rem"}},
+    React.createElement("p", {style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"1.05rem",lineHeight:"1.85",color:"var(--charcoal)",maxWidth:"680px",marginBottom:"0.75rem"}},
+      "We didn’t build this collection to a thesis. We built it one painting at a time, through galleries we kept walking back into and artists whose work we couldn’t stop thinking about. What you’ll find below is organized by the people and rooms who shaped it — Adele at Ceysson-Bénétière, Anastasia at Crèvecoeur, Pauli and Natalie at Ochi, Ben at Perrotin, Marie-Charlotte at MAGNIN-A, and the others — because the relationships are part of the collection."
+    ),
+    React.createElement("p", {style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"1.05rem",lineHeight:"1.85",color:"var(--charcoal)"}},
+      "More on the practice behind the collection in ",
+      React.createElement("button", {
+        onClick:()=>setTab("how we collect"),
+        style:{background:"none",border:"none",padding:0,fontFamily:"'Cormorant Garamond',serif",fontSize:"1.05rem",color:"var(--ink)",cursor:"pointer",textDecoration:"underline",textUnderlineOffset:"3px",textDecorationColor:"var(--rule)"}
+      }, "How We Collect →")
+    )
+  );
+
+  return React.createElement("div", {style:{minHeight:"100vh"}},
+    React.createElement("nav", {style:ns},
+      React.createElement("a", {href:"/", style:ls}, "New to the Wall Foundation"),
+      React.createElement("span", {style:{fontSize:"0.72rem",letterSpacing:"0.12em",textTransform:"uppercase",color:"var(--stone)"}},
+        stats.total+" Works · "+stats.artists+" Artists"
+      )
+    ),
+    React.createElement("div", {style:{display:"flex",borderBottom:"1px solid var(--rule)",padding:"0 3rem"}},
+      ["collection","how we collect"].map(t =>
+        React.createElement("button", {key:t, style:ts(tab===t), onClick:()=>setTab(t)}, t)
+      )
+    ),
+    React.createElement("div", {style:{padding:"2rem 3rem"}},
+
+      tab==="collection" && React.createElement("div", null,
+        introBlock,
+        React.createElement("div", {style:{display:"grid",gridTemplateColumns:"repeat(4,1fr)",gap:"1rem",marginBottom:"2rem"}},
+          [{l:"Total Works",v:stats.total},{l:"Artists",v:stats.artists},{l:"Gallery Relationships",v:stats.galleries},{l:"Regions",v:stats.regions}].map(s =>
+            React.createElement("div", {key:s.l, style:{background:"white",border:"1px solid var(--rule)",padding:"1.2rem 1.5rem"}},
+              React.createElement("div", {style:{fontSize:"0.6rem",letterSpacing:"0.15em",textTransform:"uppercase",color:"var(--stone)",marginBottom:"0.4rem"}}, s.l),
+              React.createElement("div", {style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"2rem",fontWeight:300,color:"var(--ink)"}}, s.v)
+            )
+          )
+        ),
+        React.createElement("div", {style:{display:"flex",gap:"0.4rem",marginBottom:"1.75rem",flexWrap:"wrap",alignItems:"center"}},
+          view!=="gallery" && React.createElement(React.Fragment, null,
+            React.createElement("span", {style:{fontSize:"0.6rem",letterSpacing:"0.12em",textTransform:"uppercase",color:"var(--stone)",marginRight:"0.25rem"}}, "Region"),
+            ["All"].concat(REGION_ORDER).map(f =>
+              React.createElement("button", {key:f, style:fs(regionF===f), onClick:()=>setRegionF(f)}, f==="All"?"All":(REGION_LABELS[f]||f))
+            ),
+            React.createElement("span", {style:{fontSize:"0.6rem",letterSpacing:"0.12em",textTransform:"uppercase",color:"var(--stone)",margin:"0 0.25rem 0 1rem"}}, "Market"),
+            ["All","Emerging","Ascending","Established"].map(f =>
+              React.createElement("button", {key:f, style:fs(mktF===f), onClick:()=>setMktF(f)}, f)
+            )
+          ),
+          React.createElement("div", {style:{marginLeft:"auto",display:"flex",gap:"0.3rem"}},
+            [{v:"gallery",l:"By Gallery"},{v:"grid",l:"▦"},{v:"list",l:"☰"}].map(({v,l}) =>
+              React.createElement("button", {key:v, style:{...fs(view===v),padding:"0.3rem 0.65rem"}, onClick:()=>setView(v)}, l)
+            )
+          )
+        ),
+        view==="gallery" && React.createElement(GalleryView, {grouped:grouped, onOpen:setLightboxWork}),
+        view==="grid" && React.createElement("div", {style:{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(280px,1fr))",gap:"1.5rem"}},
+          filtered.map((w,i) => React.createElement(WorkCard, {key:i, w:w}))
+        ),
+        view==="list" && React.createElement("div", {style:{background:"white",border:"1px solid var(--rule)"}},
+          React.createElement("div", {style:{display:"grid",gridTemplateColumns:"1.8fr 2fr 1.5fr 1.2fr 0.8fr 0.8fr",padding:"0.8rem 1.2rem",borderBottom:"1px solid var(--rule)",fontSize:"0.6rem",letterSpacing:"0.15em",textTransform:"uppercase",color:"var(--stone)"}},
+            ...["Artist","Title","Medium","Gallery","Region","Market"].map(h=>React.createElement("span",{key:h},h))
+          ),
+          filtered.map((w,i) => React.createElement("div", {key:i, style:{display:"grid",gridTemplateColumns:"1.8fr 2fr 1.5fr 1.2fr 0.8fr 0.8fr",padding:"0.7rem 1.2rem",borderBottom:i<filtered.length-1?"1px solid var(--rule)":"none",fontSize:"0.8rem",alignItems:"center"}},
+            React.createElement("span", {style:{fontWeight:400,color:"var(--ink)"}}, w.artist),
+            React.createElement("span", {style:{fontFamily:"'Cormorant Garamond',serif",fontStyle:"italic",color:"var(--charcoal)"}}, w.title),
+            React.createElement("span", {style:{fontSize:"0.74rem",color:"var(--stone)"}}, w.medium),
+            React.createElement("span", {style:{fontSize:"0.74rem",color:"var(--stone)"}}, w.gallery),
+            React.createElement("span", {style:{fontSize:"0.74rem",color:"var(--stone)"}}, w.region),
+            React.createElement("span", {style:bs(w.market)}, w.market)
+          ))
+        )
+      ),
+
+      tab==="how we collect" && React.createElement(EssayView, {onLinkToCollection:()=>setTab("collection")}),
+
+    ),
+    React.createElement("footer", {style:{borderTop:"1px solid var(--rule)",padding:"2rem 3rem",display:"flex",justifyContent:"space-between",alignItems:"center",flexWrap:"wrap",gap:"0.5rem",marginTop:"2rem"}},
+      React.createElement("span", {style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"0.85rem",fontWeight:400,letterSpacing:"0.05em",color:"var(--stone)"}}, "Glickfield-Gardner Collection"),
+      React.createElement("span", {style:{fontSize:"0.68rem",letterSpacing:"0.1em",color:"rgba(181,169,153,0.5)"}}, "© 2026 New to the Wall Foundation")
+    ),
+    lightboxWork && React.createElement(Lightbox, {w:lightboxWork, onClose:()=>setLightboxWork(null)})
+  );
+}
+ReactDOM.createRoot(document.getElementById("root")).render(React.createElement(App));
+</script>
+</body>
+</html>
