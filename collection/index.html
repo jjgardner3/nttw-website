@@ -26,6 +26,7 @@
 <script type="text/babel">
 const { useState, useMemo } = React;
 const driveImg = (id) => id ? "https://lh3.googleusercontent.com/d/" + id : null;
+const workImg = (w) => w.src ? w.src : driveImg(w.driveId);
 
 const REGION_ORDER = ["Paris", "International", "New York", "Los Angeles", "Hudson Valley", "Santa Fe", "Direct from artist"];
 
@@ -72,6 +73,8 @@ const COLLECTION = [
   { artist:"Shawn Huckins", title:"War Cloud and Glowing Green Curtain Study", medium:"Oil and acrylic on canvas", dimensions:'14×18"', gallery:"K Contemporary", year:"2026", region:"Santa Fe", market:"Ascending", driveId:"1GR_8XjrV2GWQ70Hf8sHfL0x6kG4HHMBN" },
   { artist:"Francisco Souto", title:"Gaze", medium:"Colored pencil mounted on wood panel", dimensions:'16×16×2½"', gallery:"K Contemporary", year:"2025", region:"Santa Fe", market:"Established", driveId:"1c9glFqhCTmG7_FzHwP7-LBaUp4L5EDqN" },
   { artist:"Marc Dennis", title:"Van Ghost", medium:"Oil on linen", dimensions:'36×27"', gallery:"K Contemporary", year:"2017", region:"Santa Fe", market:"Ascending", driveId:"1fLuwaceNbddXdxFh-3BOsrEBW1YJNeTW" },
+  { artist:"John Brendan Guinan", title:"Untitled (I)", medium:"Mixed media on stretched canvas", dimensions:"", gallery:"Direct from artist", year:"n.d.", region:"Direct from artist", market:"Ascending", src:"img/guinan-untitled-i.jpg" },
+  { artist:"John Brendan Guinan", title:"Untitled (II)", medium:"Mixed media on stretched canvas", dimensions:"", gallery:"Direct from artist", year:"n.d.", region:"Direct from artist", market:"Ascending", src:"img/guinan-untitled-ii.jpg" },
 ];
 
 const ESSAY_PARAGRAPHS = [
@@ -120,7 +123,7 @@ function Lightbox({w, onClose}) {
         style: {position:"absolute",top:"-2.5rem",right:0,background:"none",border:"none",color:"rgba(255,255,255,0.65)",fontSize:"1.5rem",cursor:"pointer",lineHeight:1,padding:"0.25rem 0.5rem",fontFamily:"sans-serif"}
       }, "✕"),
       React.createElement("img", {
-        src: driveImg(w.driveId),
+        src: workImg(w),
         alt: w.artist+" — "+w.title,
         style: {display:"block",maxWidth:"100%",maxHeight:"82vh",objectFit:"contain"}
       }),
@@ -135,9 +138,9 @@ function Lightbox({w, onClose}) {
 
 function WorkCard({w, onOpen}) {
   return React.createElement("div", {style:{background:"white",border:"1px solid var(--rule)",overflow:"hidden"}},
-    React.createElement("div", {style:{width:"100%",aspectRatio:"4/3",overflow:"hidden",background:"var(--cream)",cursor:w.driveId&&onOpen?"zoom-in":"default"}, onClick:w.driveId&&onOpen?()=>onOpen(w):undefined},
-      w.driveId
-        ? React.createElement("img", {src:driveImg(w.driveId), alt:w.artist+" — "+w.title, style:{width:"100%",height:"100%",objectFit:"cover"}, loading:"lazy", onError:(e)=>{e.target.style.display="none"}})
+    React.createElement("div", {style:{width:"100%",aspectRatio:"4/3",overflow:"hidden",background:"var(--cream)",cursor:workImg(w)&&onOpen?"zoom-in":"default"}, onClick:workImg(w)&&onOpen?()=>onOpen(w):undefined},
+      workImg(w)
+        ? React.createElement("img", {src:workImg(w), alt:w.artist+" — "+w.title, style:{width:"100%",height:"100%",objectFit:"cover"}, loading:"lazy", onError:(e)=>{e.target.style.display="none"}})
         : React.createElement("div", {style:{width:"100%",height:"100%",display:"flex",alignItems:"center",justifyContent:"center",fontFamily:"'Cormorant Garamond',serif",fontSize:"0.9rem",fontStyle:"italic",color:"var(--stone)"}}, w.artist.split(" ").pop())
     ),
     React.createElement("div", {style:{padding:"1rem 1.2rem"}},
