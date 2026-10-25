@@ -10,7 +10,7 @@
 <meta property="og:title" content="C.H.A.I.S.E.S. — The Social Geometry of the Luxembourg Gardens">
 <meta property="og:description" content="Six artists, forty works, three days at 24 rue Chapon, Paris, 20–22 October 2026. Produced by New to the Wall Foundation.">
 <meta property="og:url" content="https://newtothewallfoundation.com/projects/chaises/">
-<meta property="og:image" content="https://newtothewallfoundation.com/projects/chaises/img/film-shopfront.jpg">
+<meta property="og:image" content="https://newtothewallfoundation.com/projects/chaises/img/gallery-long-view.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
@@ -112,13 +112,13 @@
   .artists a:hover { color: var(--moss); }
   .artists span { display: block; font-size: 0.85rem; color: var(--charcoal); margin-top: 0.2rem; }
 
-  /* ── STILLS ── */
-  .stills { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
-  .stills figure { margin: 0; }
-  .stills img { width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; display: block; border: 1px solid var(--rule); }
-  .stills figcaption { margin-top: 0.5rem; font-size: 0.72rem; color: var(--stone); line-height: 1.5; }
-  .stills figcaption strong { color: var(--charcoal); font-weight: 400; }
-  .note { margin-top: 1.2rem; font-size: 0.75rem; color: var(--stone); font-style: italic; }
+  /* ── PHOTOGRAPHS ── */
+  .photo-row { display: flex; gap: 1rem; margin-bottom: 1.5rem; align-items: flex-start; }
+  .photo-row figure { margin: 0; min-width: 0; }
+  .photo-row img { width: 100%; height: auto; display: block; }
+  .photo-row figcaption { margin-top: 0.5rem; font-size: 0.72rem; color: var(--stone); line-height: 1.5; }
+  .photo-row figcaption strong { color: var(--charcoal); font-weight: 400; }
+  .note { margin-top: 0.4rem; font-size: 0.75rem; color: var(--stone); font-style: italic; }
 
   /* ── PRESS ── */
   .press { list-style: none; display: grid; gap: 1.1rem; max-width: 720px; }
@@ -157,7 +157,8 @@
     .nav-links { gap: 1.2rem; }
     .nav-links { display: none; }
     .page { padding: 3.5rem 1.4rem 4.5rem; }
-    .stills { grid-template-columns: 1fr 1fr; gap: 0.7rem; }
+    .photo-row { flex-wrap: wrap; gap: 0.7rem; margin-bottom: 1rem; }
+    .photo-row figure { flex: 1 1 100% !important; }
     .facts, .artists { grid-template-columns: 1fr; gap: 1.2rem; }
     footer { padding: 1.5rem 1.4rem; }
   }
@@ -218,18 +219,13 @@
     <li><a href="https://lachaiseparisienne.com/artists.html#wayne-pate" target="_blank" rel="noopener">Wayne Pate</a><span>Works on paper; the emblem of the show</span></li>
   </ul>
 
-  <h2>Opening night</h2>
-  <div class="stills">
-    <figure><img src="img/film-shopfront.jpg" alt="24 rue Chapon, Paris, on opening night." loading="lazy" width="800" height="1000"><figcaption><strong>24 rue Chapon</strong>, 20 October 2026</figcaption></figure>
-    <figure><img src="img/film-opening.jpg" alt="Visitors talking in the long skylit gallery during the vernissage." loading="lazy" width="800" height="1000"><figcaption><strong>The vernissage</strong></figcaption></figure>
-    <figure><img src="img/film-gardner.jpg" alt="A dark sculpture of braided chair paths rising from an octagonal plinth." loading="lazy" width="800" height="1000"><figcaption><strong>Jimmy Gardner</strong>, sculpture, 2026</figcaption></figure>
-    <figure><img src="img/film-tampol.jpg" alt="A painting of green Luxembourg chairs under trees, a white bag left on one seat." loading="lazy" width="800" height="1000"><figcaption><strong>Charlotte Tampol</strong>, <em>Reliquary of Touch (Moment Two)</em>, 2026</figcaption></figure>
-    <figure><img src="img/film-lewis.jpg" alt="Close view of a kinetic scroll: drawn figures on green chairs move across a painted scene." loading="lazy" width="800" height="1000"><figcaption><strong>Quinn Lewis</strong>, <em>Kinetic Scroll</em>, 2026</figcaption></figure>
-    <figure><img src="img/film-schwartz.jpg" alt="A visitor with a pink flower in her hair looks at framed synaesthesia drawings." loading="lazy" width="800" height="1000"><figcaption><strong>Jessica Anne Schwartz</strong>, <em>Jardin du Luxembourg Synaesthesia Drawings</em></figcaption></figure>
-    <figure><img src="img/film-van-hoorn.jpg" alt="A tall white cylinder painted with yellow and green pastel marks, beside a visitor." loading="lazy" width="800" height="1000"><figcaption><strong>Allard van Hoorn</strong>, <em>076 Urban Songline &mdash; Manifesto-Score</em>, 2026</figcaption></figure>
-    <figure><img src="img/film-crowd.jpg" alt="A crowded gallery on opening night." loading="lazy" width="800" height="1000"><figcaption><strong>Opening night</strong></figcaption></figure>
-  </div>
-  <p class="note">Stills from the film by Charlotte Van de Walle.</p>
+  <h2>The exhibition</h2>
+  <div class="photo-row"><figure style="flex:1.5"><img src="img/gallery-long-view.jpg" alt="The long skylit gallery at 24 rue Chapon, works hung along both walls." loading="lazy" width="1800" height="1200"><figcaption>The gallery, 24 rue Chapon</figcaption></figure></div>
+  <div class="photo-row"><figure style="flex:1.5"><img src="img/wayne-pate.jpg" alt="Three black-and-kraft works on paper hung in a row." loading="lazy" width="1400" height="933"><figcaption><strong>Wayne Pate</strong>, <em>Rendez-vous avec une chaise</em> Nos. 1&ndash;3, 2026</figcaption></figure><figure style="flex:1.5"><img src="img/jessica-anne-schwartz.jpg" alt="Jessica Anne Schwartz beside a long row of her framed drawings." loading="lazy" width="1400" height="933"><figcaption><strong>Jessica Anne Schwartz</strong> with her <em>Jardin du Luxembourg Synaesthesia Drawings</em>, 2023</figcaption></figure></div>
+  <div class="photo-row"><figure style="flex:1.5"><img src="img/quinn-lewis-scrolls.jpg" alt="Three wall-mounted kinetic scrolls with wooden rollers and cranks." loading="lazy" width="1400" height="933"><figcaption><strong>Quinn Lewis</strong>, <em>Kinetic Scrolls</em>, 2026</figcaption></figure><figure style="flex:1.5"><img src="img/charlotte-tampol.jpg" alt="Two paintings of green garden chairs under trees." loading="lazy" width="1400" height="933"><figcaption><strong>Charlotte Tampol</strong>, <em>Reliquary of Touch</em> (Moments One and Two), 2026</figcaption></figure></div>
+  <div class="photo-row"><figure style="flex:1.5"><img src="img/jimmy-gardner.jpg" alt="Four slender sculptures on white plinths." loading="lazy" width="1400" height="933"><figcaption><strong>Jimmy Gardner</strong>, the four sculptures, 2026</figcaption></figure><figure style="flex:0.6667"><img src="img/allard-column.jpg" alt="A tall white column painted with yellow and green pastel marks." loading="lazy" width="933" height="1400"><figcaption><strong>Allard van Hoorn</strong>, <em>076 Urban Songline &mdash; Manifesto-Score</em>, 2026</figcaption></figure></div>
+  <div class="photo-row"><figure style="flex:1.5"><img src="img/vernissage-street.jpg" alt="Guests arriving on the pavement outside the gallery." loading="lazy" width="1400" height="933"><figcaption>Arriving for the vernissage, 20 October</figcaption></figure><figure style="flex:1.5"><img src="img/allard-performance.jpg" alt="Allard van Hoorn playing the S&eacute;nat chair before a crowd." loading="lazy" width="1400" height="933"><figcaption><strong>Allard van Hoorn</strong> plays the S&eacute;nat chair</figcaption></figure></div>
+  <p class="note">Photographs &copy; Emma Derieux Billaud / New to the Wall Foundation</p>
 
   <h2>Press</h2>
   <ul class="press">
