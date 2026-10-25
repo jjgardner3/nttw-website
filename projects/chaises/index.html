@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>C.H.A.I.S.E.S. — New to the Wall Foundation</title>
+<meta name="description" content="C.H.A.I.S.E.S. — The Social Geometry of the Luxembourg Gardens. Six artists, forty works, 24 rue Chapon, Paris, 20–22 October 2026. Conceived by Jimmy Gardner and produced by New to the Wall Foundation.">
+<link rel="canonical" href="https://newtothewallfoundation.com/projects/chaises/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C.H.A.I.S.E.S. — The Social Geometry of the Luxembourg Gardens">
+<meta property="og:description" content="Six artists, forty works, three days at 24 rue Chapon, Paris, 20–22 October 2026. Produced by New to the Wall Foundation.">
+<meta property="og:url" content="https://newtothewallfoundation.com/projects/chaises/">
+<meta property="og:image" content="https://newtothewallfoundation.com/projects/chaises/img/film-shopfront.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1714;
+    --cream: #f5f1eb;
+    --warm-white: #faf8f5;
+    --stone: #b5a999;
+    --moss: #5a6b52;
+    --charcoal: #3a3632;
+    --rule: #d6cfc5;
+    --accent: #8b7355;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { font-size: 16px; -webkit-font-smoothing: antialiased; }
+  body { background: var(--warm-white); color: var(--ink); font-family: 'DM Sans', sans-serif; font-weight: 300; line-height: 1.7; overflow-x: hidden; }
+
+  /* ── NAV ── */
+  nav {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.5rem 3rem; border-bottom: 1px solid var(--rule); gap: 1.5rem;
+  }
+  .nav-mark {
+    font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; font-weight: 500;
+    letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink); text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase;
+    text-decoration: none; color: var(--stone); font-weight: 400; transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--ink); }
+
+  /* ── LAYOUT ── */
+  .page { max-width: 1040px; margin: 0 auto; padding: 5rem 2rem 6rem; }
+  .narrow { max-width: 720px; }
+  .kicker {
+    font-size: 0.68rem; letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--stone); margin-bottom: 1.25rem;
+  }
+  h1 {
+    font-family: 'Cormorant Garamond', serif; font-size: clamp(2.2rem, 5vw, 3.5rem);
+    font-weight: 300; line-height: 1.1; color: var(--ink); margin-bottom: 0.6rem;
+  }
+  h1 em { font-style: italic; color: var(--moss); }
+  .subtitle {
+    font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.35rem;
+    color: var(--charcoal); margin-bottom: 3.5rem;
+  }
+  h2 {
+    font-family: 'Cormorant Garamond', serif; font-weight: 400; font-size: 1.6rem;
+    color: var(--ink); margin: 4.5rem 0 1.2rem;
+  }
+  .label {
+    font-size: 0.68rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--stone);
+  }
+
+  /* ── OPENING: TEXT + FILM ── */
+  .opening { display: grid; grid-template-columns: 1fr 340px; gap: 4rem; align-items: start; }
+  .essay { font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; line-height: 1.95; color: var(--ink); }
+  .essay p { margin-bottom: 1.5rem; }
+  .essay em { font-style: italic; }
+
+  .film-frame {
+    position: relative; width: 100%; aspect-ratio: 9 / 16; background: #000;
+    border: 1px solid var(--rule); overflow: hidden;
+  }
+  .film-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+  .film-play { position: absolute; inset: 0; width: 100%; height: 100%; padding: 0; border: 0; background: none; cursor: pointer; display: block; }
+  .film-play img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .film-play-icon {
+    position: absolute; left: 50%; top: 50%; width: 70px; height: 70px; margin: -35px 0 0 -35px;
+    border-radius: 50%; border: 1px solid rgba(245,241,235,0.85); background: rgba(26,23,20,0.5);
+    transition: background 0.2s;
+  }
+  .film-play-icon::after {
+    content: ''; position: absolute; left: 28px; top: 23px; border-style: solid;
+    border-width: 12px 0 12px 19px; border-color: transparent transparent transparent var(--cream);
+  }
+  .film-play:hover .film-play-icon, .film-play:focus-visible .film-play-icon { background: var(--moss); border-color: var(--moss); }
+  .film-play:focus-visible { outline: 2px solid var(--moss); outline-offset: 3px; }
+  .film-caption { margin-top: 0.85rem; font-size: 0.75rem; color: var(--stone); letter-spacing: 0.04em; line-height: 1.6; }
+  .film-caption a { color: var(--moss); text-decoration: none; border-bottom: 1px solid var(--moss); }
+
+  /* ── FACTS ── */
+  .facts {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem 3rem;
+    margin-top: 4.5rem; padding: 2rem 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule);
+  }
+  .facts dt { font-size: 0.68rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--stone); margin-bottom: 0.35rem; }
+  .facts dd { font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; line-height: 1.5; color: var(--ink); }
+
+  /* ── ARTISTS ── */
+  .artists { list-style: none; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.6rem 3rem; }
+  .artists li { border-top: 1px solid var(--rule); padding-top: 1rem; }
+  .artists a { font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; color: var(--ink); text-decoration: none; }
+  .artists a:hover { color: var(--moss); }
+  .artists span { display: block; font-size: 0.85rem; color: var(--charcoal); margin-top: 0.2rem; }
+
+  /* ── STILLS ── */
+  .stills { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+  .stills figure { margin: 0; }
+  .stills img { width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; display: block; border: 1px solid var(--rule); }
+  .stills figcaption { margin-top: 0.5rem; font-size: 0.72rem; color: var(--stone); line-height: 1.5; }
+  .stills figcaption strong { color: var(--charcoal); font-weight: 400; }
+  .note { margin-top: 1.2rem; font-size: 0.75rem; color: var(--stone); font-style: italic; }
+
+  /* ── PRESS ── */
+  .press { list-style: none; display: grid; gap: 1.1rem; max-width: 720px; }
+  .press li { border-left: 1px solid var(--rule); padding-left: 1rem; }
+  .press .src { display: block; font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--stone); }
+  .press a { font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; color: var(--ink); text-decoration: none; }
+  .press a:hover { color: var(--moss); }
+  .press .what { display: block; font-size: 0.85rem; color: var(--charcoal); }
+
+  /* ── LINKS ── */
+  .bottom-links {
+    display: flex; flex-wrap: wrap; gap: 1.2rem 2.5rem; margin-top: 4.5rem; padding-top: 2rem;
+    border-top: 1px solid var(--rule);
+  }
+  .bottom-links a {
+    font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none;
+    color: var(--moss); border-bottom: 1px solid var(--moss); padding-bottom: 0.2rem;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .bottom-links a:hover { color: var(--ink); border-color: var(--ink); }
+
+  footer {
+    border-top: 1px solid var(--rule); padding: 1.75rem 3rem;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  footer span { font-size: 0.68rem; letter-spacing: 0.1em; color: var(--stone); }
+
+  @media (max-width: 860px) {
+    .opening { grid-template-columns: 1fr; gap: 3rem; }
+    .film-player { max-width: 340px; width: 100%; margin: 0 auto; }
+    .facts { grid-template-columns: 1fr 1fr; }
+    .artists { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 640px) {
+    nav { padding: 1.25rem 1.4rem; }
+    .nav-links { gap: 1.2rem; }
+    .nav-links { display: none; }
+    .page { padding: 3.5rem 1.4rem 4.5rem; }
+    .stills { grid-template-columns: 1fr 1fr; gap: 0.7rem; }
+    .facts, .artists { grid-template-columns: 1fr; gap: 1.2rem; }
+    footer { padding: 1.5rem 1.4rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-mark">New to the Wall Foundation</a>
+  <ul class="nav-links">
+    <li><a href="/">Home</a></li>
+    <li><a href="/#projects">Projects</a></li>
+    <li><a href="/collection/">The Collection</a></li>
+  </ul>
+</nav>
+
+<div class="page">
+
+  <p class="kicker">Project &amp; Exhibition · Paris, October 2026</p>
+  <h1>C.H.A.I.S.E.S.</h1>
+  <p class="subtitle">The Social Geometry of the Luxembourg Gardens</p>
+
+  <div class="opening">
+    <div class="essay">
+      <p>Every morning a gardener in the Jardin du Luxembourg resets the green metal chairs into a neutral grid. Over the day, Paris redraws them: two chairs that draw close and then drift apart, a single chair tracking the sun, a reader keeping an arm&rsquo;s length of distance. Nobody directs this choreography. Almost nobody sees it.</p>
+      <p><em>C.H.A.I.S.E.S.</em> put it in a room. Four scenarios observed in the garden over a year &mdash; the sun-worshipper, the lovers&rsquo; spat, the reader, the gathering &mdash; were translated by six artists into sculpture, painting, drawing, kinetic scrolls, a sound performance played on a S&eacute;nat chair borrowed from the garden, and an installation at 24 rue Chapon in the Marais, on the eve of Art Basel Paris.</p>
+      <p>Before the doors opened, 3D-printed chaises were let loose around the city; each one found puts a pin on a public map. The project was conceived by Jimmy Gardner and commissioned and produced by the foundation.</p>
+    </div>
+
+    <div class="film-player">
+      <div class="film-frame" data-src="https://drive.google.com/file/d/1OyGaMWuxz2SlcvtoSsRK3niFQp_YGQc_/preview">
+        <button type="button" class="film-play" aria-label="Play the film of the opening night, 2 minutes 57 seconds">
+          <img src="img/film-poster.jpg" alt="Title card: Wayne Pate&rsquo;s emblem above the words C.H.A.I.S.E.S., the social geometry of the Luxembourg Gardens." width="720" height="1280">
+          <span class="film-play-icon" aria-hidden="true"></span>
+        </button>
+        <noscript><iframe src="https://drive.google.com/file/d/1OyGaMWuxz2SlcvtoSsRK3niFQp_YGQc_/preview" title="C.H.A.I.S.E.S. &mdash; opening night film" allow="autoplay; fullscreen" allowfullscreen></iframe></noscript>
+      </div>
+      <p class="film-caption">Opening night, 20 October 2026. Film by Charlotte Van de Walle, 2 min 57 s. <a href="https://drive.google.com/file/d/1OyGaMWuxz2SlcvtoSsRK3niFQp_YGQc_/view" target="_blank" rel="noopener">Full screen&nbsp;&#8599;</a></p>
+    </div>
+  </div>
+
+  <dl class="facts">
+    <div><dt>Dates</dt><dd>20&ndash;22 October 2026<br>Vernissage Tuesday 20 October</dd></div>
+    <div><dt>Venue</dt><dd>24 rue Chapon, 75003 Paris</dd></div>
+    <div><dt>Forms</dt><dd>Sculpture, painting, drawing, sound, installation</dd></div>
+    <div><dt>Artists</dt><dd>Six</dd></div>
+    <div><dt>Works</dt><dd>Forty</dd></div>
+    <div><dt>Produced by</dt><dd>New to the Wall Foundation</dd></div>
+  </dl>
+
+  <h2>Artists</h2>
+  <ul class="artists">
+    <li><a href="https://lachaiseparisienne.com/artists.html#jimmy-gardner" target="_blank" rel="noopener">Jimmy Gardner</a><span>Concept; four sculptures, one per scenario</span></li>
+    <li><a href="https://lachaiseparisienne.com/artists.html#allard-van-hoorn" target="_blank" rel="noopener">Allard van Hoorn</a><span>Creative direction, sound and installation</span></li>
+    <li><a href="https://lachaiseparisienne.com/artists.html#quinn-lewis" target="_blank" rel="noopener">Quinn Lewis</a><span>Garden drawings and kinetic scrolls</span></li>
+    <li><a href="https://lachaiseparisienne.com/artists.html#charlotte-tampol" target="_blank" rel="noopener">Charlotte Tampol</a><span>Painting</span></li>
+    <li><a href="https://lachaiseparisienne.com/artists.html#jessica-anne-schwartz" target="_blank" rel="noopener">Jessica Anne Schwartz</a><span>Synaesthesia drawings</span></li>
+    <li><a href="https://lachaiseparisienne.com/artists.html#wayne-pate" target="_blank" rel="noopener">Wayne Pate</a><span>Works on paper; the emblem of the show</span></li>
+  </ul>
+
+  <h2>Opening night</h2>
+  <div class="stills">
+    <figure><img src="img/film-shopfront.jpg" alt="24 rue Chapon, Paris, on opening night." loading="lazy" width="800" height="1000"><figcaption><strong>24 rue Chapon</strong>, 20 October 2026</figcaption></figure>
+    <figure><img src="img/film-opening.jpg" alt="Visitors talking in the long skylit gallery during the vernissage." loading="lazy" width="800" height="1000"><figcaption><strong>The vernissage</strong></figcaption></figure>
+    <figure><img src="img/film-gardner.jpg" alt="A dark sculpture of braided chair paths rising from an octagonal plinth." loading="lazy" width="800" height="1000"><figcaption><strong>Jimmy Gardner</strong>, sculpture, 2026</figcaption></figure>
+    <figure><img src="img/film-tampol.jpg" alt="A painting of green Luxembourg chairs under trees, a white bag left on one seat." loading="lazy" width="800" height="1000"><figcaption><strong>Charlotte Tampol</strong>, <em>Reliquary of Touch (Moment Two)</em>, 2026</figcaption></figure>
+    <figure><img src="img/film-lewis.jpg" alt="Close view of a kinetic scroll: drawn figures on green chairs move across a painted scene." loading="lazy" width="800" height="1000"><figcaption><strong>Quinn Lewis</strong>, <em>Kinetic Scroll</em>, 2026</figcaption></figure>
+    <figure><img src="img/film-schwartz.jpg" alt="A visitor with a pink flower in her hair looks at framed synaesthesia drawings." loading="lazy" width="800" height="1000"><figcaption><strong>Jessica Anne Schwartz</strong>, <em>Jardin du Luxembourg Synaesthesia Drawings</em></figcaption></figure>
+    <figure><img src="img/film-van-hoorn.jpg" alt="A tall white cylinder painted with yellow and green pastel marks, beside a visitor." loading="lazy" width="800" height="1000"><figcaption><strong>Allard van Hoorn</strong>, <em>076 Urban Songline &mdash; Manifesto-Score</em>, 2026</figcaption></figure>
+    <figure><img src="img/film-crowd.jpg" alt="A crowded gallery on opening night." loading="lazy" width="800" height="1000"><figcaption><strong>Opening night</strong></figcaption></figure>
+  </div>
+  <p class="note">Stills from the film by Charlotte Van de Walle.</p>
+
+  <h2>Press</h2>
+  <ul class="press">
+    <li><span class="src">Podcast · 4 October 2026</span><a href="https://laviecreativepodcast.com/2026/10/04/c-h-a-i-s-e-s-how-the-iconic-luxembourg-gardens-chairs-inspired-a-paris-art-exhibition/" target="_blank" rel="noopener">La Vie Creative, episode 631: &ldquo;C.H.A.I.S.E.S.: How the Iconic Luxembourg Gardens Chairs Inspired a Paris Art Exhibition&rdquo;</a><span class="what">Krystal Kenney with Jimmy Gardner and Allard van Hoorn</span></li>
+    <li><span class="src">Listing · Slash Paris</span><a href="https://slash-paris.com/en/evenements/c-h-a-i-s-e-s-la-geometrie-sociale-du-jardin-du-luxembourg/sous" target="_blank" rel="noopener">C.H.A.I.S.E.S. &mdash; The Social Geometry of the Luxembourg Gardens</a><span class="what">Exhibition page, in English and French</span></li>
+    <li><span class="src">Newsletter · 1 October 2026</span><a href="https://mailchi.mp/lacuisineparis/october2026" target="_blank" rel="noopener">La Cuisine Paris &mdash; &ldquo;Bonjour from Paris, Welcome to October 2026&rdquo;</a><span class="what">&ldquo;Things to do in October&rdquo;</span></li>
+    <li><span class="src">Press room</span><a href="https://lachaiseparisienne.com/press.html" target="_blank" rel="noopener">Press kits in English and French, and images free for press use</a></li>
+  </ul>
+
+  <div class="bottom-links">
+    <a href="https://lachaiseparisienne.com/" target="_blank" rel="noopener">The exhibition site &#8599;</a>
+    <a href="https://lachaiseparisienne.com/works.html" target="_blank" rel="noopener">The works &#8599;</a>
+    <a href="https://lachaiseparisienne.com/map.html" target="_blank" rel="noopener">Where the chaises are &#8599;</a>
+    <a href="/">&larr; New to the Wall Foundation</a>
+  </div>
+
+</div>
+
+<footer>
+  <span>New to the Wall Foundation</span>
+  <span>&copy; 2026</span>
+</footer>
+
+<script>
+document.querySelectorAll('.film-frame').forEach(function (frame) {
+  var btn = frame.querySelector('.film-play');
+  if (!btn) return;
+  btn.addEventListener('click', function () {
+    var f = document.createElement('iframe');
+    f.src = frame.getAttribute('data-src');
+    f.title = 'C.H.A.I.S.E.S. — opening night film';
+    f.allow = 'autoplay; fullscreen';
+    f.allowFullscreen = true;
+    btn.replaceWith(f);
+  });
+});
+</script>
+</body>
+</html>

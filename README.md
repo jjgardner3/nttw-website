@@ -8,6 +8,7 @@ Static site for https://newtothewallfoundation.com
 index.html              home
 collection/index.html   the collection (React via CDN + Babel standalone, single file)
 how-we-collect/         the essay
+projects/chaises/       C.H.A.I.S.E.S. (Paris, Oct 2026) project page; film embedded from Google Drive
 fragile-arles.jpg       Sartor / Fondation Van Gogh Arles image
 netlify.toml            build + header config
 ```
